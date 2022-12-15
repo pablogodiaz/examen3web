@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8001";
+const BASE_URL = "http://pabloexamenweb.ddns.net:8001";
 
 const getExamplesFromUser = async (email) => {
     const res = await fetch(`${BASE_URL}/examples/filter/${email}`);
