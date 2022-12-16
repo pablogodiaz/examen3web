@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./pages/Home";
+import Create from "./pages/Create";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Wrapper } from "./AppWrapper";
@@ -12,6 +13,7 @@ root.render(
       <Routes>
         <Route element={<Wrapper />}>
           <Route path="/" element={<Home />} />
+          <Route path="/create" element={<Create />} />
         </Route>
       </Routes>
     </BrowserRouter>

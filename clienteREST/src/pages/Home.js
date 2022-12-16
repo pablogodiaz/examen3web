@@ -2,14 +2,23 @@ import { getExamplesFromUser, deleteExample } from "../api/FetchExamplesFromUser
 import { useEffect, useState } from "react";
 import { MDBBtn } from 'mdb-react-ui-kit';
 import Table from 'react-bootstrap/Table';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+
+const clientId = "786565206300-nlv7r0d4dnljk6sgoknq9risv476mtca.apps.googleusercontent.com";
 
 
+export default function DataTable() {
 
+  const navigate = useNavigate();
 
-export default function Home() {
+  var email = ""
 
-  const email = "pablogodiaz@uma.es";
+  try {
+    email = JSON.parse(localStorage.getItem("profile")).email;
+  } catch(e) {
+    console.log(e)
+  }
 
   const getExamples = async (email) => {
     const examples = await(getExamplesFromUser(email));
@@ -37,6 +46,7 @@ export default function Home() {
     if(id !== undefined) {
       deleteExample(id);
     }
+    navigate(0);
   }
 
   return (
@@ -57,13 +67,14 @@ export default function Home() {
               <td>{example.string}</td>
               <td>{example.integer}</td>
               <td>{example.float}</td>
-              <td><button onClick={() => borrar(example.id)} className="btn btn-md btn-success">Borrar</button></td>
+              <td><Button onClick={() => borrar(example.id)} className="btn btn-md" variant="danger">Borrar</Button></td>
             </tr>
           ))}
-          
         </tbody>
       </Table>
-      <MDBBtn href="/">Actualizar</MDBBtn>
+      <div className="justify-content-align">
+        <Button onClick={() => navigate("/create")} className="btn btn-md btn-success">Crear Ejemplo</Button>
+      </div>
     </>
   );
 }

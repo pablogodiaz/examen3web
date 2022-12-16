@@ -51,5 +51,5 @@ class Example(BaseModel):
 class ExampleUpdate(BaseModel):
     string: Optional[str]
     integer: Optional[int]
-    float: Optional[float]
+    float: Optional[int]
     email_user: Optional[str]

@@ -4,23 +4,30 @@ import {
   googleLogout,
 } from "@react-oauth/google";
 import { Outlet, Link } from "react-router-dom";
+import NavbarComponent from "./components/Navbar/Navbar";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
 import jwtDecode from "jwt-decode";
 import Button from "react-bootstrap/Button";
 import { Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Wrapper = () => {
+  const navigate = useNavigate();
+
   const CLIENT_ID =
     "48605147423-2svm150uchjseq5kvekucr264f0l3pk2.apps.googleusercontent.com";
   const GoogleAuth = () => {
     const [profile, setProfile] = useState(
       JSON.parse(localStorage.getItem("profile"))
     );
+
     const onSuccess = ({ credential }) => {
       const data = jwtDecode(credential);
       setProfile(data);
       localStorage.setItem("profile", JSON.stringify(data));
+      console.log("Login Success!");
+      navigate(0);
     };
     const onFailure = err => {
       console.log("failed:", err);
@@ -29,6 +36,7 @@ export const Wrapper = () => {
       setProfile(null);
       localStorage.removeItem("profile");
       googleLogout();
+      navigate(0);
     };
 
     return profile ? (
@@ -66,6 +74,7 @@ export const Wrapper = () => {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
+      <NavbarComponent auth={GoogleAuth} />
       <Outlet />
     </GoogleOAuthProvider>
   );
