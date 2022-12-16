@@ -36,20 +36,25 @@ class User(BaseModel):
             raise ValueError('email must be valid')
         return v
 
-class Example(BaseModel):
+class Parada(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="id")
-    string: str
-    integer: int
-    float: float
-    email_user: str
-    @validator("email_user")
-    def email_must_be_valid(cls, v):
-        if not '@' in v:
-            raise ValueError('email must be valid')
-        return v
+    codLinea: int
+    nombreLinea: str
+    sentido: int
+    orden: int
+    codParada: int
+    nombreParada: str
+    direccion: str
+    lon: float
+    lat: float
 
-class ExampleUpdate(BaseModel):
-    string: Optional[str]
-    integer: Optional[int]
-    float: Optional[int]
-    email_user: Optional[str]
+class ParadaUpdate(BaseModel):
+    codLinea: Optional[int]
+    nombreLinea: Optional[str]
+    sentido: Optional[int]
+    orden: Optional[int]
+    codParada: Optional[int]
+    nombreParada: Optional[str]
+    direccion: Optional[str]
+    lon: Optional[float]
+    lat: Optional[float]
